@@ -58,6 +58,50 @@ public class APITest {
     }
 
     @Test
+    public void RegisterTestSuccessful(){
+
+        String email = "eve.holt@reqres.in";
+        String password = "pistol";
+
+        JSONObject bodyObject = new JSONObject();
+
+        bodyObject.put("email", email);
+        bodyObject.put("password", password);
+
+        //Test
+        RestAssured.given()
+                .header("Content-type", "application/json")
+                .header("Accept", "application/json")
+                .body(bodyObject.toString())
+                .when()
+                .post("https://reqres.in/api/register")
+                .then().log().all()
+                .assertThat().statusCode(200)
+                .assertThat().body("id", Matchers.equalTo(4))
+                .assertThat().body("token", Matchers.equalTo("QpwL5tke4Pnpja7X4"));
+    }
+
+    @Test
+    public void RegisterTestUnsuccesful() {
+
+        String email = "eve.holt@reqres.in";
+
+        JSONObject bodyObject = new JSONObject();
+
+        bodyObject.put("email", email);
+
+        //Test
+        RestAssured.given()
+                .header("Content-type", "application/json")
+                .header("Accept", "application/json")
+                .body(bodyObject.toString())
+                .when()
+                .post("https://reqres.in/api/register")
+                .then().log().all()
+                .assertThat().statusCode(400);
+    }
+
+    @Test
     public void testPutUser(){
 
         RestAssured.baseURI = "https://reqres.in/";
