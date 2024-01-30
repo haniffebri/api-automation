@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id("io.qameta.allure") version "2.11.0"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.testng', name: 'testng', version: '7.5'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.1'
+    testImplementation group: 'org.json', name: 'json', version: '20220924'
+
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.5.1'
+
+
+}
+
+test {
+    useTestNG {
+        suites 'src/test/resources/testng.xml'
+    }
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+    }
+}
