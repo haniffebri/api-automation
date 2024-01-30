@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.util.HashMap;
 
+import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -27,14 +28,6 @@ public class APITest {
                 .assertThat().statusCode(200)  // status code
                 .assertThat().body("page", Matchers.equalTo(2)) // access correct page
                 .assertThat().body("data.id", Matchers.hasSize(6)); // seluruh data ada 6
-
-        //RestAssured
-        //      .given().when()
-        //      .get("https://reqres.in/api/users?page=2")
-        //      .then().log().all()
-        //      .assertThat().statusCode(200)
-        //      .assertThat().body("per_page", Matchers.equalTo(6))
-        //      .assertThat().body("page", Matchers.hasSize(2));
 
     }
 
@@ -155,11 +148,3 @@ public class APITest {
     }
 
 }
-
-/* @Test
-public void validateJsonSchemaGetListUser(String filename) {
-
-    File JSONFile = utilities.getJSONSchemaFile(filename);
-    res.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(JSONFile));
-
-}*/
